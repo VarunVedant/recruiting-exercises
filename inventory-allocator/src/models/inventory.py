@@ -32,6 +32,10 @@ class Inventory:
     #         warehouse_stock = warehouse.chk_stocks(order)
     #         # print(warehouse_stock)
 
+    def items_to_fulfill(self, items_left, items_in_curr_warehouse):
+        return items_left if items_left < items_in_curr_warehouse else items_in_curr_warehouse
+
+
     def stage_items_for_shipment(self, shipment, order, item, warehouse_name, item_stock):
         is_warehouse_unused = True
         
@@ -70,11 +74,11 @@ class Inventory:
             for item in items_to_order:
                 item_stock = warehouse.chk_item_availability(item)
                 item_left = order_unfulfilled[item]
-                items_to_fulfill = item_left if item_left < item_stock else item_stock
-                if item_left <= 0:
+                
+                items_to_fulfill = self.items_to_fulfill(item_left, item_stock)
+                if items_to_fulfill <= 0:
                     continue
-                else:
-                    self.stage_items_for_shipment(shipment, order_unfulfilled, item, warehouse.name, item_stock)
+                self.stage_items_for_shipment(shipment, order_unfulfilled, item, warehouse.name, item_stock)
 
         self.remove_unfulfilled_items(order, order_unfulfilled, shipment)
         return shipment
