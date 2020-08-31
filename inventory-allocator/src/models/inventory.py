@@ -44,7 +44,7 @@ class Inventory:
         """
         is_warehouse_unused = True
         
-        item_staging_qty = order_left[item] if order_left[item] < item_stock else item_stock
+        item_staging_qty = self.stock_to_commit_from_warehouse(order_left[item], item_stock)
 
         for warehouse in shipment:
             if warehouse_name in warehouse.keys():
@@ -72,8 +72,7 @@ class Inventory:
                 # Remove item which is readied to be shipped but still hasn't met the desired amount in the order.
                 if (item in inventory_to_ship) and (order_unfulfilled[item] != 0):
                     inventory_to_ship.pop(item, None)
-                else:
-                    continue
+
             # None of the items to be shipped from the curr warehouse have met the desired amt in the order.
             if not inventory_to_ship:
                 shipment.remove(warehouse)
