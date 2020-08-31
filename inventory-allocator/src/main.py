@@ -10,10 +10,8 @@ def main():
 
     inventory_json_path = os.path.join(".", "data", "inventory.json")
     inventory_info = Utils.json_file_to_dict(inventory_json_path)
+    inventory = Inventory.load_inventory_data(inventory_info["warehouses"])
 
-    inventory = Inventory()
-    inventory.load_inventory_data(inventory_info["warehouses"])
-    
     final_shipment = inventory.fulfill_order(order)
     print(final_shipment)
 

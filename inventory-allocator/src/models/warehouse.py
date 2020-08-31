@@ -1,18 +1,21 @@
 
 class Warehouse:
 
-    def __init__(self):
-        self.name = ""
-        self.inventory = {}
+    def __init__(self, name="", inventory=None):
+        if inventory is None:
+            inventory = {}
+        self.name = name
+        self.inventory = inventory
 
 
-    def load_warehouse_data(self, warehouse_data):
+    @classmethod
+    def load_warehouse_data(cls, warehouse_data):
         """
-        Initialize Warehouse info.
+        Factory method to create warehouse.
         :param warehouse_data: dict with warehouse name and inventory data.
+        :return: Returns Warehouse object after loading warehouse data.
         """
-        self.name = warehouse_data["name"]
-        self.inventory = warehouse_data["inventory"]
+        return cls(warehouse_data["name"], warehouse_data["inventory"])
 
 
     def chk_item_availability(self, item) -> int:

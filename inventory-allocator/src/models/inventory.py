@@ -9,15 +9,18 @@ class Inventory:
         self.warehouses = [] if warehouses is None else warehouses
 
 
-    def load_inventory_data(self, inventory_data):
+    @classmethod
+    def load_inventory_data(cls, inventory_data):
         """
-        Create list of warehouses.
+        Factory method to create an inventory.
         :param inventory_data: A list of warehouses with their respective inventories.
+        :returns: Returns Inventory object after loading inventory data.
         """
+        warehouses = []
         for warehouse_data in inventory_data:
-            warehouse = Warehouse()
-            warehouse.load_warehouse_data(warehouse_data)
-            self.warehouses.append(warehouse)
+            warehouse = Warehouse.load_warehouse_data(warehouse_data)
+            warehouses.append(warehouse)
+        return cls(warehouses)
 
 
     def stock_to_commit_from_warehouse(self, items_left, items_in_curr_warehouse) -> int:
