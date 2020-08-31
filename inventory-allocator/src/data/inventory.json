@@ -1,0 +1,18 @@
+{
+	"warehouses": [
+		{
+			"name": "owd",
+			"inventory": {
+				"apple": 5,
+				"orange": 10
+			}
+		},
+		{
+			"name": "dm",
+			"inventory": {
+				"banana": 5,
+				"orange": 10
+			}
+		}
+	]
+}
