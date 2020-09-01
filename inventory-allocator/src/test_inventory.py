@@ -26,7 +26,7 @@ class TestInventory(unittest.TestCase):
         expected_shipment = [{ "dm": { "apple": 5 }}, { "owd": { "apple": 5 } }]
         self.assertEqual(final_shipment, expected_shipment)
 
-    
+
     def test_fulfill_order_no_inventory_1(self):
         order = { "apple": 1 }
         inventory_info = [{ "name": "owd", "inventory": { "apple": 0 } }]
@@ -45,7 +45,7 @@ class TestInventory(unittest.TestCase):
         final_shipment = inventory.fulfill_order(order)
         expected_shipment = []
         self.assertEqual(final_shipment, expected_shipment)
-    
+
 
     def test_fulfill_order_multi_items(self):
         order = {"apple": 5, "banana": 5, "orange": 5}
@@ -61,7 +61,10 @@ class TestInventory(unittest.TestCase):
         inventory = Inventory.load_inventory_data(inventory_info)
         final_shipment = inventory.fulfill_order(order)
         expected_shipment = [
-            {'owd': {'apple': 5, 'orange': 5}},
-            {'dm': {'banana': 5}}
+            {'dm': {'banana': 5}},
+            {'owd': {'apple': 5, 'orange': 5}}
         ]
         self.assertEqual(final_shipment, expected_shipment)
+
+if __name__ == '__main__':
+    unittest.main()

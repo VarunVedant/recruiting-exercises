@@ -101,4 +101,5 @@ class Inventory:
                 self.stage_items_for_shipment(shipment, order_unfulfilled, item, warehouse.name, item_stock)
 
         self.remove_unfulfilled_items(order, order_unfulfilled, shipment)
+        shipment.reverse()
         return shipment
